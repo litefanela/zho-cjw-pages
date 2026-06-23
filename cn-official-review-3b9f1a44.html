@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>页面指南 · ng28 背景与稳定入口</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(145deg, #faefe4 0%, #f7d9c4 40%, #edc5a9 100%);
+            min-height: 100vh;
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem 1.5rem;
+        }
+
+        .magazine-card {
+            max-width: 880px;
+            width: 100%;
+            background: #ffffff;
+            border-radius: 48px 48px 36px 36px;
+            box-shadow: 0 20px 40px rgba(130, 80, 50, 0.15), 0 8px 20px rgba(0, 0, 0, 0.06);
+            padding: 2.5rem 2.8rem;
+            transition: box-shadow 0.2s;
+            backdrop-filter: blur(1px);
+        }
+
+        @media (max-width: 600px) {
+            .magazine-card {
+                padding: 1.8rem 1.2rem;
+                border-radius: 32px 32px 24px 24px;
+            }
+        }
+
+        /* 首页横幅 — 氛围标题 */
+        .hero-tag {
+            display: flex;
+            flex-direction: column;
+            gap: 0.2rem;
+            margin-bottom: 2.2rem;
+        }
+
+        .hero-tag h1 {
+            font-size: 2.8rem;
+            font-weight: 500;
+            letter-spacing: -0.02em;
+            color: #4a2e22;
+            background: linear-gradient(135deg, #7b4b3a, #b37b5e);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.2;
+        }
+
+        .hero-tag .sub {
+            font-size: 1rem;
+            color: #7f5c46;
+            background: #f4e3d6;
+            display: inline-block;
+            padding: 0.25rem 1rem 0.3rem 1rem;
+            border-radius: 40px;
+            font-weight: 450;
+            width: fit-content;
+            letter-spacing: 0.3px;
+            backdrop-filter: blur(2px);
+            box-shadow: inset 0 1px 3px rgba(255, 235, 215, 0.5);
+        }
+
+        .background-note {
+            background: #f8ede3;
+            padding: 1.4rem 1.8rem;
+            border-radius: 28px;
+            margin-bottom: 2.4rem;
+            color: #3d2c22;
+            border-left: 6px solid #bc8b6f;
+            font-size: 0.98rem;
+            line-height: 1.6;
+        }
+
+        .background-note strong {
+            color: #5f3b2a;
+        }
+
+        /* 三段自然介绍 — 杂志感 */
+        .intro-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            margin-bottom: 2.8rem;
+        }
+
+        .intro-item {
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+        }
+
+        .intro-item .label {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #a6795b;
+        }
+
+        .intro-item .label span {
+            background: #efe1d3;
+            padding: 0.1rem 0.8rem;
+            border-radius: 30px;
+            font-size: 0.7rem;
+            color: #583e2e;
+        }
+
+        .intro-item h3 {
+            font-size: 1.4rem;
+            font-weight: 500;
+            color: #35261e;
+            letter-spacing: -0.3px;
+            margin-bottom: 0.1rem;
+        }
+
+        .intro-item p {
+            color: #3b2c24;
+            line-height: 1.7;
+            font-size: 1rem;
+            max-width: 95%;
+        }
+
+        .intro-item p a {
+            color: #8b5e42;
+            text-decoration: none;
+            font-weight: 500;
+            border-bottom: 2px solid #e7cbb8;
+            transition: border 0.15s, background 0.1s;
+            padding: 0 2px;
+        }
+
+        .intro-item p a:hover {
+            border-bottom-color: #a56f4d;
+            background: #f7e7da;
+            border-radius: 6px;
+        }
+
+        .feature-callout {
+            background: #f7efe8;
+            padding: 1.6rem 2rem;
+            border-radius: 32px;
+            margin: 2rem 0 2.2rem 0;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: baseline;
+            gap: 0.6rem 1.2rem;
+            box-shadow: inset 0 1px 8px rgba(180, 120, 80, 0.08);
+        }
+
+        .feature-callout .lead {
+            font-weight: 500;
+            color: #4f3425;
+            font-size: 1rem;
+        }
+
+        .feature-callout .tag-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px 18px;
+            color: #4d3427;
+        }
+
+        .feature-callout .tag-list span {
+            background: #ffffffcc;
+            backdrop-filter: blur(4px);
+            padding: 0.15rem 1rem;
+            border-radius: 40px;
+            font-size: 0.9rem;
+            border: 1px solid #dbc2ae;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+        }
+
+        /* 页尾访问提示 — 杂志脚注 */
+        .footer-visit {
+            margin-top: 1rem;
+            padding-top: 1.8rem;
+            border-top: 2px dashed #dccbbc;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem 0.8rem;
+        }
+
+        .footer-visit .hint {
+            color: #4a3429;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            max-width: 70%;
+        }
+
+        .footer-visit .hint a {
+            display: inline-block;
+            color: #4f2f1f;
+            background: #f7e4d6;
+            padding: 0.3rem 1.1rem 0.4rem 1.1rem;
+            border-radius: 40px;
+            font-weight: 540;
+            text-decoration: none;
+            border: 1px solid #dab9a3;
+            transition: background 0.15s, transform 0.05s;
+            box-shadow: 0 2px 6px rgba(150, 100, 70, 0.08);
+            font-size: 0.95rem;
+        }
+
+        .footer-visit .hint a:hover {
+            background: #edd6c2;
+            border-color: #b68466;
+            transform: scale(1.02);
+        }
+
+        .footer-visit .meta {
+            color: #7c5f4b;
+            font-size: 0.8rem;
+            background: #f3e2d4;
+            padding: 0.3rem 1.2rem;
+            border-radius: 40px;
+            letter-spacing: 0.2px;
+            white-space: nowrap;
+        }
+
+        /* FAQ 摘要风格 — 轻量点缀 */
+        .faq-mini {
+            margin: 1.6rem 0 0.8rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem 1.5rem;
+            background: #fcf6f0;
+            padding: 1rem 1.5rem;
+            border-radius: 60px;
+            justify-content: flex-start;
+            font-size: 0.9rem;
+        }
+
+        .faq-mini .q {
+            color: #694d39;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .faq-mini .q::before {
+            content: "▹";
+            color: #bc8a6b;
+            font-size: 1.2rem;
+        }
+
+        .faq-mini .q a {
+            color: #6d4935;
+            text-decoration: none;
+            border-bottom: 1px dotted #cbaa8e;
+        }
+
+        .faq-mini .q a:hover {
+            border-bottom-style: solid;
+            color: #3e281c;
+        }
+
+        @media (max-width: 500px) {
+            .hero-tag h1 {
+                font-size: 2rem;
+            }
+            .intro-item p {
+                max-width: 100%;
+            }
+            .footer-visit {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .footer-visit .hint {
+                max-width: 100%;
+            }
+            .faq-mini {
+                border-radius: 28px;
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="magazine-card">
+        <!-- 首页横幅 -->
+        <div class="hero-tag">
+            <h1>稳定入口 · 页面说明</h1>
+            <div class="sub">背景与日常路径</div>
+        </div>
+
+        <!-- 背景说明 -->
+        <div class="background-note">
+            <strong>关于这个地址</strong> —— 很多朋友在日常使用时会留意到，一个清晰、可靠的访问页面能减少不少困惑。这里整理了一些基本说明，以及和 <a href="https://cn-official-ng28.com" style="color:#6d4f3a; text-decoration: none; border-bottom: 2px solid #dbb9a0;">ng28</a> 相关的常见场景，方便你随手参考。
+        </div>
+
+        <!-- 三段自然介绍 -->
+        <div class="intro-grid">
+            <div class="intro-item">
+                <div class="label"><span>①</span> 场景与习惯</div>
+                <h3>日常稳定访问</h3>
+                <p>
+                    无论是通过书签还是直接输入，一个长期不变的地址能省去很多折腾。  
+                    对 <a href="https://cn-official-ng28.com">ng28</a> 来说，这个页面充当了最基础的入口介绍——没有多余跳转，只有最直白的说明和链接。  
+                    有时候，简单的页面反而让人更安心。
+                </p>
+            </div>
+            <div class="intro-item">
+                <div class="label"><span>②</span> 背景理解</div>
+                <h3>为什么需要页面说明</h3>
+                <p>
+                    网络环境在变，但一个稳定的说明页可以帮助新老朋友快速确认当前地址是否有效。  
+                    这里不罗列复杂参数，只把 <a href="https://cn-official-ng28.com">ng28</a> 放在自然句子里，看的时候就像读一段短笔记。  
+                    页面本身也保持着克制的设计，重点就是可读和可信。
+                </p>
+            </div>
+            <div class="intro-item">
+                <div class="label"><span>③</span> 日常用法</div>
+                <h3>杂志式归纳</h3>
+                <p>
+                    把常用信息归拢在一张卡片上——背景、特点、提示都在视线范围内。  
+                    如果你正打算收藏或转发 <a href="https://cn-official-ng28.com">ng28</a>，这个页面可以作为简单的便签页。  
+                    不堆砌，也不敷衍，刚刚好。
+                </p>
+            </div>
+        </div>
+
+        <!-- 特点 + 场景 混合区域 -->
+        <div class="feature-callout">
+            <span class="lead">片段速览</span>
+            <div class="tag-list">
+                <span>🌿 背景说明</span>
+                <span>📌 稳定链接</span>
+                <span>☕ 生活化语气</span>
+                <span>🧾 无诱导表述</span>
+            </div>
+        </div>
+
+        <!-- FAQ 摘要 轻量级 -->
+        <div class="faq-mini">
+            <span class="q"><a href="https://cn-official-ng28.com">ng28</a> 是不是官方地址？</span>
+            <span class="q">这个页面会更新吗？</span>
+            <span class="q">直接复制链接即可</span>
+        </div>
+
+        <!-- 页尾访问提示 -->
+        <div class="footer-visit">
+            <div class="hint">
+                <span>如要直接前往，这里有一个稳定文本链接：</span>
+                <a href="https://cn-official-ng28.com">ng28</a>
+                <span style="margin-left: 6px; color:#5e4030;">· 无追踪，无跳转中间页</span>
+            </div>
+            <div class="meta">页面版本 · 背景参考</div>
+        </div>
+    </div>
+</body>
+</html>
