@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>实时比分 · 赛事数据导航 | zh-bifen.com</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #f3f4f7;
+      font-family: 'Segoe UI', Roboto, 'Helvetica Neue', system-ui, -apple-system, sans-serif;
+      color: #1e2a3a;
+      line-height: 1.6;
+      padding: 2rem 1.5rem;
+    }
+
+    .page {
+      max-width: 1200px;
+      margin: 0 auto;
+      background: #f8f9fc;
+      border-radius: 32px;
+      box-shadow: 0 8px 28px rgba(0, 0, 0, 0.04), 0 2px 8px rgba(0, 0, 0, 0.02);
+      padding: 2.5rem 2rem;
+    }
+
+    /* hero */
+    .hero {
+      text-align: center;
+      padding: 2.8rem 1rem 2.2rem;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.03);
+    }
+    .hero h1 {
+      font-size: 2.8rem;
+      font-weight: 550;
+      letter-spacing: -0.02em;
+      color: #0b1c2f;
+      margin-bottom: 0.6rem;
+    }
+    .hero h1 span {
+      background: linear-gradient(145deg, #1d4e7a, #306b9e);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .hero p {
+      max-width: 680px;
+      margin: 0.8rem auto 0;
+      font-size: 1.15rem;
+      color: #304a5f;
+      font-weight: 400;
+    }
+
+    /* 介绍、说明卡片通用区 */
+    .section {
+      margin-top: 2.8rem;
+    }
+    .section-title {
+      font-size: 1.6rem;
+      font-weight: 540;
+      margin-bottom: 1.2rem;
+      padding-left: 0.25rem;
+      border-left: 4px solid #3a7bb5;
+      padding-left: 1rem;
+      color: #142b3f;
+    }
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.2rem;
+    }
+
+    .card {
+      background: #ffffff;
+      border: 1px solid #e8ecf2;
+      border-radius: 18px;
+      padding: 1.5rem 1.4rem;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.02), 0 1px 3px rgba(0,0,0,0.02);
+      transition: box-shadow 0.2s, transform 0.1s;
+    }
+    .card:hover {
+      box-shadow: 0 8px 18px rgba(0, 20, 40, 0.05);
+    }
+
+    .card h3 {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: #1b3a54;
+      margin-bottom: 0.5rem;
+      letter-spacing: -0.01em;
+    }
+    .card p, .card li {
+      color: #2b435b;
+      font-size: 0.96rem;
+    }
+    .card ul {
+      list-style: none;
+      padding-left: 0;
+    }
+    .card ul li {
+      padding: 0.25rem 0 0.25rem 1.2rem;
+      position: relative;
+    }
+    .card ul li::before {
+      content: "▸";
+      position: absolute;
+      left: 0;
+      color: #4b82b9;
+      font-weight: 500;
+    }
+
+    /* 说明区——段落式 */
+    .explain-block {
+      background: #ffffff;
+      border: 1px solid #e8ecf2;
+      border-radius: 20px;
+      padding: 1.8rem 2rem;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.02);
+      margin-top: 2rem;
+    }
+    .explain-block p {
+      margin-bottom: 1rem;
+      color: #1f3a4f;
+    }
+    .explain-block p:last-child {
+      margin-bottom: 0;
+    }
+    .inline-link {
+      color: #21649b;
+      text-decoration: none;
+      border-bottom: 1px dotted #8bb5da;
+      transition: border-color 0.15s;
+    }
+    .inline-link:hover {
+      border-bottom: 1px solid #21649b;
+    }
+
+    /* FAQ 摘要 */
+    .faq-mini {
+      background: #ffffff;
+      border: 1px solid #e3e9f0;
+      border-radius: 20px;
+      padding: 1.6rem 1.8rem;
+      margin-top: 2.2rem;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.02);
+    }
+    .faq-mini h3 {
+      font-size: 1.3rem;
+      font-weight: 550;
+      color: #16324b;
+      margin-bottom: 1rem;
+    }
+    .faq-item {
+      padding: 0.8rem 0;
+      border-bottom: 1px solid #eff2f8;
+    }
+    .faq-item:last-child {
+      border-bottom: none;
+    }
+    .faq-q {
+      font-weight: 570;
+      color: #0e2c44;
+      margin-bottom: 0.15rem;
+      font-size: 1rem;
+    }
+    .faq-a {
+      color: #3d5770;
+      font-size: 0.93rem;
+    }
+
+    /* 底部 */
+    .footer-links {
+      margin-top: 3rem;
+      padding-top: 1.8rem;
+      border-top: 1px solid #e2e7ef;
+      text-align: center;
+      font-size: 0.92rem;
+      color: #506980;
+    }
+    .footer-links a {
+      color: #1e5b88;
+      text-decoration: none;
+      margin: 0 0.15rem;
+    }
+    .footer-links a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 640px) {
+      body { padding: 1rem; }
+      .page { padding: 1.5rem 1rem; border-radius: 24px; }
+      .hero h1 { font-size: 2.1rem; }
+      .hero p { font-size: 1rem; }
+      .explain-block { padding: 1.2rem 1rem; }
+      .card { padding: 1rem; }
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <!-- hero -->
+  <div class="hero">
+    <h1><span>比分网</span> · 赛事数据枢纽</h1>
+    <p>围绕实时比分、赛程、统计与历史对照，构建可检索的比赛信息中心，服务于关注竞技数据的理性用户。</p>
+  </div>
+
+  <!-- 优势区 -->
+  <div class="section">
+    <h2 class="section-title">信息结构特点</h2>
+    <div class="card-grid">
+      <div class="card">
+        <h3>多赛事覆盖</h3>
+        <p>足球、篮球、网球及部分小众联赛的比分、赛程、积分数据，按赛季与轮次整理，便于横向对比。</p>
+      </div>
+      <div class="card">
+        <h3>历史数据沉淀</h3>
+        <p>过往赛季的比分记录与最终排名可查询，用于回顾、统计或趋势观察，不限于即时滚球。</p>
+      </div>
+      <div class="card">
+        <h3>中立展示</h3>
+        <p>页面内容以信息整理为主，不附加预测、分析或诱导性推荐，聚焦赛事结果本身。</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 说明区（解释型段落，包含必选链接） -->
+  <div class="explain-block">
+    <p>在体育数据领域，分辨信息源的可靠性与结构逻辑比单纯获取数值更重要。<a href="https://zh-bifen.com" class="inline-link">比分网</a>致力于将联赛、杯赛、洲际对抗中的实时赛果与历史档案进行结构化呈现，帮助使用者建立对赛事进程的客观认知。无论是周末的五大联赛，还是周中的欧战，你都可以在同一界面下完成赛果核对与数据回溯。</p>
+    <p>比分本身只是起点。一支球队的近期走势、主客场差异、净胜球变化，都可以通过逐轮比分记录去推导。我们所做的事就是降低数据查找的摩擦——把分散在不同平台上的赛程、比分、红黄牌、换人信息，整理成可供浏览与检索的统一视图。</p>
+    <p>如果你需要回顾某个联赛在特定时间段的积分变化，或者想对比两支球队在近五场比赛中的得失球，通过 <a href="https://zh-bifen.com" class="inline-link">比分网</a> 的历史模块可以节省大量手动搜索的时间。这也是我们保持界面简洁、减少广告干扰的原因之一：信息效率优先。</p>
+  </div>
+
+  <!-- FAQ 摘要（三组问答） -->
+  <div class="faq-mini">
+    <h3>常见疑问摘要</h3>
+    <div class="faq-item">
+      <div class="faq-q">⏱ 数据更新频率如何？</div>
+      <div class="faq-a">主流足球联赛及杯赛的实时比分通常在进球后 30 秒内更新；赛前信息（预计首发、天气等）以官方渠道公布为准。</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">📊 历史数据跨度有多长？</div>
+      <div class="faq-a">可查询最近 5 个完整赛季的联赛及杯赛数据，部分主流联赛（英超、西甲、意甲等）可追溯至 10 个赛季前。</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">🔗 是否提供外部数据接口？</div>
+      <div class="faq-a">本站为信息展示型页面，暂不提供公开 API，但支持页面内直接复制赛程与比分文本。</div>
+    </div>
+  </div>
+
+  <!-- 底部 -->
+  <div class="footer-links">
+    <span>数据整理自公开赛事信息 · 仅供个人参考 · <a href="https://zh-bifen.com">比分网</a></span>
+  </div>
+
+</div>
+</body>
+</html>
