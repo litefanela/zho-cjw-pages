@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>比分网 – 杂志专题介绍</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+      background: #f4f6f9;
+      color: #1e293b;
+      line-height: 1.6;
+    }
+
+    /* 深色头图 */
+    .hero {
+      background: linear-gradient(145deg, #0b1120 0%, #1a253f 100%);
+      padding: 4rem 2rem 5rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -30%;
+      left: -20%;
+      width: 140%;
+      height: 140%;
+      background: radial-gradient(circle at 30% 40%, rgba(55, 130, 200, 0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero h1 {
+      font-size: 2.8rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      color: #e9edf5;
+      margin-bottom: 0.5rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero .subtitle {
+      font-size: 1.15rem;
+      color: #a4b8d9;
+      max-width: 640px;
+      margin: 0.8rem auto 0;
+      position: relative;
+      z-index: 1;
+      font-weight: 350;
+      line-height: 1.5;
+    }
+
+    .hero .badge {
+      display: inline-block;
+      background: rgba(65, 132, 228, 0.2);
+      border: 1px solid rgba(65, 132, 228, 0.3);
+      color: #b6cef0;
+      font-size: 0.8rem;
+      padding: 0.25rem 1rem;
+      border-radius: 40px;
+      margin-top: 1.2rem;
+      position: relative;
+      z-index: 1;
+      letter-spacing: 0.3px;
+    }
+
+    /* 浅色正文区 */
+    .container {
+      max-width: 920px;
+      margin: -2rem auto 0;
+      padding: 0 1.5rem 4rem;
+      position: relative;
+      z-index: 2;
+    }
+
+    .intro-card {
+      background: #ffffff;
+      border-radius: 28px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05), 0 1px 4px rgba(0, 0, 0, 0.03);
+      padding: 2.5rem 2.8rem;
+      margin-bottom: 2.8rem;
+    }
+
+    .intro-card h2 {
+      font-size: 1.7rem;
+      font-weight: 500;
+      color: #0f172a;
+      border-left: 6px solid #3b78e0;
+      padding-left: 1rem;
+      margin-bottom: 1.5rem;
+      line-height: 1.2;
+    }
+
+    .intro-card p {
+      margin-bottom: 1.2rem;
+      font-size: 1.02rem;
+      color: #1e293b;
+    }
+
+    .intro-card p:last-child {
+      margin-bottom: 0;
+    }
+
+    .highlight-link {
+      color: #1d4ed8;
+      text-decoration: none;
+      font-weight: 500;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.15s;
+    }
+
+    .highlight-link:hover {
+      border-bottom-color: #1d4ed8;
+    }
+
+    .feature-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.8rem;
+      margin: 2rem 0 1.5rem;
+    }
+
+    .feature-item {
+      flex: 1 1 200px;
+      background: #f8faff;
+      border-radius: 20px;
+      padding: 1.5rem 1.2rem;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
+      border: 1px solid #eef2f8;
+      transition: transform 0.2s;
+    }
+
+    .feature-item:hover {
+      transform: translateY(-2px);
+    }
+
+    .feature-item .icon {
+      font-size: 1.8rem;
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+
+    .feature-item h3 {
+      font-size: 1.1rem;
+      font-weight: 500;
+      margin-bottom: 0.4rem;
+      color: #0b1929;
+    }
+
+    .feature-item p {
+      font-size: 0.92rem;
+      color: #334155;
+      margin-bottom: 0;
+    }
+
+    .faq-mini {
+      background: #f2f6fd;
+      border-radius: 24px;
+      padding: 1.8rem 2.2rem;
+      margin-top: 2rem;
+    }
+
+    .faq-mini h3 {
+      font-size: 1.2rem;
+      font-weight: 500;
+      color: #0b1a2e;
+      margin-bottom: 1rem;
+    }
+
+    .faq-mini details {
+      margin-bottom: 0.8rem;
+      border-bottom: 1px solid #dce3ef;
+      padding-bottom: 0.5rem;
+    }
+
+    .faq-mini details:last-of-type {
+      border-bottom: none;
+    }
+
+    .faq-mini summary {
+      font-weight: 500;
+      cursor: pointer;
+      color: #1e293b;
+      padding: 0.3rem 0;
+      font-size: 1rem;
+    }
+
+    .faq-mini summary::-webkit-details-marker {
+      color: #3b78e0;
+    }
+
+    .faq-mini details p {
+      margin-top: 0.4rem;
+      padding-left: 0.6rem;
+      color: #374151;
+      font-size: 0.95rem;
+    }
+
+    /* 页尾访问提示 */
+    .footer-note {
+      margin-top: 3.5rem;
+      text-align: center;
+      background: #ffffff;
+      border-radius: 28px;
+      padding: 2rem 2rem 2.5rem;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.02);
+      border: 1px solid #e6ecf5;
+    }
+
+    .footer-note p {
+      font-size: 1.1rem;
+      color: #1e293b;
+      max-width: 500px;
+      margin: 0 auto 0.5rem;
+    }
+
+    .footer-note .link-sentence {
+      background: #f0f4fe;
+      display: inline-block;
+      padding: 0.6rem 2rem;
+      border-radius: 60px;
+      font-size: 1.1rem;
+    }
+
+    .footer-note .link-sentence a {
+      font-weight: 600;
+    }
+
+    hr {
+      border: none;
+      border-top: 1px solid #dce3ef;
+      margin: 1rem 0;
+    }
+
+    /* 响应式 */
+    @media (max-width: 700px) {
+      .hero h1 {
+        font-size: 2rem;
+      }
+      .hero .subtitle {
+        font-size: 1rem;
+      }
+      .intro-card {
+        padding: 1.8rem 1.5rem;
+      }
+      .feature-grid {
+        gap: 1.2rem;
+      }
+      .faq-mini {
+        padding: 1.5rem 1.2rem;
+      }
+      .footer-note {
+        padding: 1.6rem 1.2rem;
+      }
+      .container {
+        padding: 0 0.8rem 3rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 深色头图 -->
+  <section class="hero">
+    <h1>比分网 · 专题</h1>
+    <p class="subtitle">一份关于站点背景、数据逻辑与日常使用的简明说明，帮你快速了解这个工具的定位与信赖基础。</p>
+    <span class="badge">基于持续维护 · 信息聚合</span>
+  </section>
+
+  <!-- 浅色正文区 -->
+  <div class="container">
+
+    <!-- 第一段：背景说明 -->
+    <div class="intro-card">
+      <h2>从何而来 · 背景说明</h2>
+      <p><strong>比分网</strong>并不是一个突然出现的名字。它源于对公开赛事数据长期整理的需求——比赛结果、实时进程、联赛走势，这些信息分散在不同平台，而一个集中化的摘要页面能节省大量切换成本。最初只是一组定期更新的表格，后来逐渐加入统计视角和模块化展示，形成现在的形态。站点本身不生产原始数据，而是对多个可信任来源进行二次聚合与结构化呈现，所有比分均标注时间与赛事阶段，方便对照验证。</p>
+      <p>开发与维护团队保持小型化运作，重点放在数据稳定性与界面清晰度上。没有复杂注册流程，也不收集用户位置或偏好信息，只提供纯内容浏览。这种克制使得页面加载速度较快，适合在移动端或低带宽环境下快速查询。</p>
+    </div>
+
+    <!-- 第二段：特点与使用场景 -->
+    <div class="intro-card">
+      <h2>日常使用 · 三个常见场景</h2>
+      <div class="feature-grid">
+        <div class="feature-item">
+          <span class="icon">📋</span>
+          <h3>赛后回顾</h3>
+          <p>查看已结束比赛的完整比分、进球时间与红黄牌记录，适合复盘或整理赛果。</p>
+        </div>
+        <div class="feature-item">
+          <span class="icon">⏳</span>
+          <h3>实时追踪</h3>
+          <p>关注正在进行的赛事，页面按固定频率刷新，无需手动重载即可看到最新变化。</p>
+        </div>
+        <div class="feature-item">
+          <span class="icon">📆</span>
+          <h3>赛程预览</h3>
+          <p>提前了解未来数日的对阵安排，便于规划观赛时间或投注参考（仅作信息浏览）。</p>
+        </div>
+      </div>
+      <p>以上场景都围绕同一个核心：以较低的信息噪音提供可靠的比分呈现。无论你是普通观众、数据分析爱好者，还是需要快速获取赛况的编辑人员，<a href="https://zh-bfscore.com" class="highlight-link">比分网</a>都尽可能保持界面的一致性与数据的可追溯性。每个比分旁边都附带赛事阶段、时间戳或联赛标识，降低误读可能。</p>
+    </div>
+
+    <!-- 第三段：可信说明与 FAQ 摘要 -->
+    <div class="intro-card">
+      <h2>可信度 · 从数据到展示</h2>
+      <p>任何比分类工具都会面临准确性质疑。因此站点在数据来源上明确标注联赛与数据供应商（如官方统计机构或授权数据接口），并保留最近一次数据同步时间。如果遇到异常比分（例如比赛中断或延期），页面会通过状态标签（如“中断”“延期”“取消”）进行提示，而不是直接隐藏或修改数字。</p>
+      <p>另外，站点不嵌入第三方广告联盟，也没有弹窗式推荐，所有链接均为功能导航或外部数据源引用。这种设计直接减少了干扰，也让页面内容更接近一份“干净的参考页”。</p>
+
+      <!-- 迷你 FAQ -->
+      <div class="faq-mini">
+        <h3>常见疑问摘要</h3>
+        <details>
+          <summary>数据更新频率是多少？</summary>
+          <p>常规联赛每 30–60 秒同步一次，杯赛及关注度较高的赛事更新间隔略短。具体以页面上的时间戳为准。</p>
+        </details>
+        <details>
+          <summary>历史比分能查到多久？</summary>
+          <p>通常保留最近 3 个完整赛季的主要联赛数据，更早的场次可通过存档页面检索（部分联赛有所差异）。</p>
+        </details>
+        <details>
+          <summary>移动端体验如何？</summary>
+          <p>页面采用响应式布局，在手机浏览器上会自动调整表格和字体大小，无需横向滚动即可阅读大部分内容。</p>
+        </details>
+        <details>
+          <summary>是否需要注册或登录？</summary>
+          <p>完全不需要。所有内容公开可见，也没有会员体系或付费墙。直接打开页面即可浏览。</p>
+        </details>
+      </div>
+    </div>
+
+    <!-- 页尾访问提示 -->
+    <div class="footer-note">
+      <p>如果你需要查阅实时比分、赛程或历史数据，可以直接使用</p>
+      <div class="link-sentence">
+        <a href="https://zh-bfscore.com" class="highlight-link">比分网</a>
+      </div>
+      <hr style="max-width: 200px; margin: 1.2rem auto;">
+      <p style="font-size: 0.9rem; color: #4b5a73;">无广告 · 无注册 · 聚焦比分本身</p>
+    </div>
+
+  </div>
+
+</body>
+</html>
