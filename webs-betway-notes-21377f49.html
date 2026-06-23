@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>持续触达 · betway 阅读笔记</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background: #f0f8fa;
+            color: #1f3b3f;
+            line-height: 1.7;
+            padding: 2rem 1.2rem;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .page-card {
+            max-width: 820px;
+            margin: 0 auto;
+            background: #ffffffde;
+            backdrop-filter: blur(2px);
+            border-radius: 36px;
+            box-shadow: 0 12px 28px rgba(22, 82, 90, 0.08), 0 4px 12px rgba(0, 30, 40, 0.04);
+            padding: 2.4rem 2rem;
+            border: 1px solid #c8e3e9;
+        }
+
+        /* 网格点缀背景（卡片内） */
+        .page-card {
+            background-image: 
+                linear-gradient(rgba(38, 166, 154, 0.04) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(38, 166, 154, 0.04) 1px, transparent 1px);
+            background-size: 32px 32px;
+            background-color: #ffffff;
+        }
+
+        h1 {
+            font-size: 2.1rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            margin-bottom: 0.3rem;
+            color: #0b434b;
+            border-left: 6px solid #20b2aa;
+            padding-left: 1rem;
+        }
+
+        .subhead {
+            font-size: 1rem;
+            color: #4a727a;
+            margin-top: 0.1rem;
+            margin-bottom: 2.2rem;
+            padding-left: 1.6rem;
+            border-bottom: 1px dashed #b5d6db;
+            padding-bottom: 0.9rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            flex-wrap: wrap;
+        }
+
+        .subhead span {
+            background: #e2f1f3;
+            padding: 0.2rem 0.9rem;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            color: #1b6d73;
+            font-weight: 500;
+        }
+
+        .intro {
+            background: #e6f4f5;
+            padding: 1.4rem 1.6rem;
+            border-radius: 28px;
+            margin-bottom: 2rem;
+            font-size: 1.05rem;
+            border: 1px solid #c1dfe3;
+            color: #153f45;
+        }
+
+        .intro strong {
+            color: #0e6d6b;
+        }
+
+        .article-body p {
+            margin-bottom: 1.5rem;
+            font-size: 1.02rem;
+        }
+
+        .quote-box {
+            background: #f3fafb;
+            border-left: 4px solid #26a69a;
+            padding: 1rem 1.6rem;
+            margin: 1.8rem 0 2rem 0;
+            border-radius: 0 20px 20px 0;
+            font-style: normal;
+            color: #1e5359;
+            box-shadow: 0 2px 6px rgba(34, 139, 130, 0.06);
+        }
+
+        .quote-box::before {
+            content: "💡";
+            margin-right: 8px;
+            font-size: 1.2rem;
+        }
+
+        .grid-cards {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin: 2rem 0 1.6rem 0;
+        }
+
+        .grid-item {
+            background: #eef8fa;
+            padding: 1.2rem 1.2rem 1rem 1.2rem;
+            border-radius: 24px;
+            border: 1px solid #c7e1e6;
+            transition: all 0.2s;
+        }
+
+        .grid-item:hover {
+            background: #e2f2f5;
+            border-color: #6bb7b9;
+            transform: translateY(-2px);
+        }
+
+        .grid-item h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #0b5c5b;
+            margin-bottom: 0.4rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .grid-item p {
+            font-size: 0.92rem;
+            color: #2c5f66;
+            margin-bottom: 0.1rem;
+        }
+
+        .action-note {
+            background: #ffffff;
+            border: 1px solid #b8dbdf;
+            border-radius: 48px;
+            padding: 0.9rem 1.6rem;
+            margin: 2rem 0 0.8rem 0;
+            text-align: center;
+            font-size: 1rem;
+            color: #144f55;
+            box-shadow: 0 2px 10px rgba(0,60,60,0.04);
+        }
+
+        .action-note a {
+            color: #0d7c7a;
+            font-weight: 600;
+            text-decoration: none;
+            border-bottom: 2px solid #7cc5c0;
+            transition: border 0.2s, background 0.2s;
+            padding: 0 4px;
+        }
+
+        .action-note a:hover {
+            border-bottom-color: #166662;
+            background: #dff1f0;
+            border-radius: 6px;
+        }
+
+        .faq-mini {
+            margin-top: 2.6rem;
+            padding-top: 1.4rem;
+            border-top: 2px dotted #b6d6db;
+        }
+
+        .faq-mini details {
+            margin-bottom: 0.8rem;
+            border-radius: 20px;
+            background: #f2fafb;
+            padding: 0.4rem 1rem 0.6rem 1rem;
+            border: 1px solid #cfe8eb;
+        }
+
+        .faq-mini summary {
+            font-weight: 600;
+            color: #105f63;
+            cursor: pointer;
+            padding: 0.3rem 0;
+        }
+
+        .faq-mini details p {
+            margin: 0.5rem 0 0.2rem 1rem;
+            color: #1f5359;
+            font-size: 0.95rem;
+        }
+
+        .footer-note {
+            margin-top: 2.4rem;
+            font-size: 0.85rem;
+            color: #4b7b80;
+            text-align: center;
+            border-top: 1px solid #d2e6ea;
+            padding-top: 1.2rem;
+        }
+
+        /* 移动端适配 */
+        @media (max-width: 600px) {
+            body {
+                padding: 1rem 0.8rem;
+            }
+            .page-card {
+                padding: 1.6rem 1.2rem;
+                border-radius: 28px;
+            }
+            h1 {
+                font-size: 1.7rem;
+                padding-left: 0.8rem;
+            }
+            .subhead {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.3rem;
+                padding-left: 0.8rem;
+            }
+            .grid-cards {
+                grid-template-columns: 1fr;
+                gap: 0.9rem;
+            }
+            .intro {
+                padding: 1rem 1.2rem;
+                font-size: 0.98rem;
+            }
+            .action-note {
+                border-radius: 30px;
+                padding: 0.8rem 1rem;
+                font-size: 0.95rem;
+            }
+            .quote-box {
+                padding: 0.8rem 1rem;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .page-card {
+                padding: 1rem 0.9rem;
+            }
+            h1 {
+                font-size: 1.4rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page-card">
+        <h1>再次抵达，持续翻阅</h1>
+        <div class="subhead">
+            一个关于收藏与回访的笔记
+            <span># 归档 · 常读常新</span>
+        </div>
+
+        <div class="intro">
+            <strong>为什么我们总说“先收藏，以后再看”？</strong> 真正有价值的信息源，值得被设计成一种习惯。与其让链接沉入收藏夹深处，不如给它们一个被重新打开的理由。<br>
+            这次想聊的，是 <strong>betway</strong> 这个站点给我带来的“反复访问”体验。
+        </div>
+
+        <div class="article-body">
+            <p>
+                几个月前，我第一次打开 <a href="https://webs-betway.com" style="color: #0d7c7a; font-weight: 500; text-decoration: underline; text-underline-offset: 3px;">betway</a> 时，并没有太当回事——类似的页面我见过不少。但奇怪的是，那之后我总会在某个周四的下午或周末的深夜，不自觉地再次输入那个网址。不是因为它有什么炫目的动效，而是每次去，都能找到一些之前忽略的细节。
+            </p>
+            <p>
+                信息消费的节奏一旦变快，我们很容易把“看过”当作“理解”。但阅读真正的回报往往来自第二次、第三次的注视。把 <strong>betway</strong> 放进书签栏的固定位置之后，我发现自己的浏览方式变了：不再是滑过，而是停留；不是寻找新鲜，而是重新发现。这种安静的复访，让信息的颗粒度变得更清晰。
+            </p>
+
+            <div class="quote-box">
+                收藏不是终点，而是下一次阅读的起点。频繁回访的页面，往往藏着最初没看懂的线索。
+            </div>
+
+            <p>
+                后来我养成一个小习惯：每个月初，把那些曾经标记过“值得再看”的链接逐个点开。而 <strong>betway</strong> 几乎每次都留在待读清单的前排。它的结构并不复杂，但内容层次铺得从容，常看常新。如果用一个词来形容这种持续感，我觉得是“信任”——不是对内容的盲从，而是知道这里总有值得投入时间的东西。
+            </p>
+        </div>
+
+        <!-- 网格卡片：特点与场景 -->
+        <div class="grid-cards">
+            <div class="grid-item">
+                <h3>📌 固定入口</h3>
+                <p>放在浏览器书签栏的首位，或设为常用标签页。每次打开都是一次轻量级的“回来看看”。</p>
+            </div>
+            <div class="grid-item">
+                <h3>🔄 视角迭代</h3>
+                <p>同一段话，上个月和这个月读起来感受完全不同。回访让理解产生层次。</p>
+            </div>
+            <div class="grid-item">
+                <h3>🧩 笔记联动</h3>
+                <p>把回访时的新想法随手记下来，累积成个人知识库的一环。复利效应很明显。</p>
+            </div>
+            <div class="grid-item">
+                <h3>🌱 低频率高专注</h3>
+                <p>不必每天都去，一周一次或两周一次即可。重点在于每次打开都保持开放的心态。</p>
+            </div>
+        </div>
+
+        <!-- 链接自然嵌入句子 -->
+        <div class="action-note">
+            🧭 如果你也习惯对某些站点反复回访，不妨把 <a href="https://webs-betway.com">betway</a> 加入你的定期阅读清单。不用刻意，想起了就去看看——持续的关注会带来不一样的视角。
+        </div>
+
+        <!-- FAQ 摘要 -->
+        <div class="faq-mini">
+            <details>
+                <summary>🔍 为什么要强调“再次访问”？和一次性阅读有什么不同？</summary>
+                <p>一次性阅读获取的是信息；反复阅读获取的是结构和脉络。尤其对于有一定信息密度的站点，第二次访问时大脑已经卸下了“陌生感”，更能聚焦在内核上。</p>
+            </details>
+            <details>
+                <summary>📎 如何让回访变得自然而不刻意？</summary>
+                <p>不要把回访当成任务。可以关联某个日常动作，比如“周末冲咖啡的时候打开一次”，或者用浏览器自带的“固定标签页”功能。门槛越低，越容易持续。</p>
+            </details>
+            <details>
+                <summary>🧾 收藏夹里那么多链接，为什么单独提到 betway？</summary>
+                <p>因为它具备一种“可复访性”：内容不是一次性消费的，结构清晰，且每次浏览都能找到之前忽略的细节。这类站点很少，值得单独记录。</p>
+            </details>
+        </div>
+
+        <div class="footer-note">
+            📖 阅读的深度，往往藏在第二次打开的瞬间。
+        </div>
+    </div>
+</body>
+</html>
